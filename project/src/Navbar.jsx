@@ -97,6 +97,10 @@ const Navbar = () => {
     
     
   }
+
+  console.log(isLogIn);
+  console.log(loggedInUsername)
+
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -156,9 +160,9 @@ const Navbar = () => {
       
         
       
-  {loggedInUsername ? (
+  {sessionStorage.getItem('user')?.toLowerCase() === 'true' ? (
         <><span className="navbar-text">
-            Welcome, {loggedInUsername}
+            Welcome, {sessionStorage.getItem('username')}
           </span><ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
                 <a class="nav-link" href="#">My Order</a>
