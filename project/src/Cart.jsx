@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "./AuthContext";
+
 function Cart(){
+    const {setIsLogIn,isLogIn,loggedInUsername,setLoggedInUsername} = useContext(AuthContext);
+    console.log(isLogIn)
+    console.log(loggedInUsername)
     return(
         <>
         <div>

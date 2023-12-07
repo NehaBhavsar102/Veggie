@@ -9,10 +9,10 @@ function FirstPage(){
     return(
         <div>
             
-      <AuthProvider>
+      
       <Navbar />
       <HomeCards />
-      </AuthProvider>
+      
             
             
       
