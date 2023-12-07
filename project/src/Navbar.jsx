@@ -72,7 +72,8 @@ const Navbar = () => {
       if (response.status === 200) {
         if (response.data.login_status === 1) {
           
-
+      sessionStorage.setItem('user', true);
+      sessionStorage.setItem('username', login.username);
          alert("successful");
          setIsLogIn(true);
         sessionStorage.setItem('user',true);
@@ -96,8 +97,6 @@ const Navbar = () => {
     
     
   }
-  console.log(isLogIn);
-  console.log(loggedInUsername);
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -157,9 +156,9 @@ const Navbar = () => {
       
         
       
-  {sessionStorage.getItem('user')?.toLowerCase() === 'true'  ? (
-        <><span class="navbar-text">
-            Welcome, {sessionStorage.getItem('username')}
+  {loggedInUsername ? (
+        <><span className="navbar-text">
+            Welcome, {loggedInUsername}
           </span><ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
                 <a class="nav-link" href="#">My Order</a>
