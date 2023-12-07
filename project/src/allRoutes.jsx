@@ -7,10 +7,13 @@ import { AuthProvider } from './AuthContext';
 const AllRoutes = () => {
     return (
       <>
+<<<<<<< HEAD
 
        
 
 
+=======
+>>>>>>> da22f3b8fb73491297d34d04e32c92e85bf06185
       <AuthProvider>
         <Routes>
         <Route path="/" element={<FirstPage />} />
