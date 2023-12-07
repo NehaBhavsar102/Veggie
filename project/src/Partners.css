@@ -1,0 +1,13 @@
+/* Your CSS or SCSS file */
+.quote-container {
+    border-left: 4px solid #333; /* Left border for quote effect */
+    padding-left: 15px; /* Padding to create space between the border and text */
+    font-style: italic; /* Italics for quote style */
+    margin-top: 20px; /* Adjust top margin */
+  }
+  
+  .quote-text {
+    font-size: 20px; /* Adjust font size */
+    line-height: 1.6; /* Adjust line height for readability */
+  }
+  
