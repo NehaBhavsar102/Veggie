@@ -5,10 +5,10 @@ import { Carousel, Card, Button } from 'react-bootstrap';
 import { AuthContext } from './AuthContext';
 
 const HomeCards = () => {
-  const { isLogIn, loggedInUsername} = useContext(AuthContext);
+  
   
   const buyNow = () => {
-   if(isLogIn){
+   if(sessionStorage.getItem('user')){
     window.location.href='/cart';
    }else{
     alert("Please Login/SignUp before you Buy");

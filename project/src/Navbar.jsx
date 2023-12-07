@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Navbar = () => {
   
- 
+  
   const {setIsLogIn,isLogIn,loggedInUsername,setLoggedInUsername} = useContext(AuthContext);
   const [showSignUp, setShowSignUp] = useState(false);
   
@@ -75,22 +75,29 @@ const Navbar = () => {
 
          alert("successful");
          setIsLogIn(true);
+        sessionStorage.setItem('user',true);
+        sessionStorage.setItem('username',login.username);
          setLoggedInUsername(login.username);
+         
          closeModal(true)
 
          
         
-        } else{
+        }
+        
+         else{
           alert("unsuccessful");
         }
       }
       
     }catch(e){
-        alert("unsuccesful");
+        alert("error");
     }
     
     
   }
+  console.log(isLogIn);
+  console.log(loggedInUsername);
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -143,16 +150,16 @@ const Navbar = () => {
           src="images/logo.png" 
           width="40"
           height="40"
-          className="d-inline-block align-top"
+          class="d-inline-block align-top"
           alt="Company Logo"
         />
         <label><b>&nbsp;VEGGIE&nbsp;&nbsp;</b></label>
       
         
       
-  {loggedInUsername ? (
-        <><span className="navbar-text">
-            Welcome, {loggedInUsername}
+  {sessionStorage.getItem('user')?.toLowerCase() === 'true'  ? (
+        <><span class="navbar-text">
+            Welcome, {sessionStorage.getItem('username')}
           </span><ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
                 <a class="nav-link" href="#">My Order</a>
@@ -181,49 +188,49 @@ const Navbar = () => {
   </div>
 
         <div class="row justify-content-center">
-          <div className="col-md-5">
+          <div class="col-md-5">
             
-            <div className="card">
-              <div className="card-body">
-                <h3 className="card-title">{showSignUp ? 'Sign Up' : 'Sign In'}</h3>
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">{showSignUp ? 'Sign Up' : 'Sign In'}</h3>
                 <br />
                 {showSignUp ? (
                   
                   <form onSubmit={callSignUp}>
                     
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Username</label>
-                      <input type="text" className="form-control" id="username" placeholder="Create a username"  onChange={handleSignUpChange} required/>
+                      <input type="text" class="form-control" id="username" placeholder="Create a username"  onChange={handleSignUpChange} required/>
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Full Name</label>
-                      <input type="text" className="form-control" id="name" placeholder="Enter your name" onChange={handleSignUpChange} required />
+                      <input type="text" class="form-control" id="name" placeholder="Enter your name" onChange={handleSignUpChange} required />
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Email</label>
-                      <input type="email" className="form-control" id="email" placeholder="Enter your email" onChange={handleSignUpChange} required />
+                      <input type="email" class="form-control" id="email" placeholder="Enter your email" onChange={handleSignUpChange} required />
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>New Password</label>
-                      <input type="password" className="form-control" id="password" placeholder="create password" onChange={handleSignUpChange}  required/>
+                      <input type="password" class="form-control" id="password" placeholder="create password" onChange={handleSignUpChange}  required/>
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Contact No.</label>
-                      <input type="number" className="form-control" id="contact" placeholder="Enter your contact no" onChange={handleSignUpChange} required/>
+                      <input type="number" class="form-control" id="contact" placeholder="Enter your contact no" onChange={handleSignUpChange} required/>
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Full Address</label>
-                      <input type="text" className="form-control" id="address"  aria-describedby="addressnote" placeholder="Enter your address" onChange= {handleSignUpChange} required />
+                      <input type="text" class="form-control" id="address"  aria-describedby="addressnote" placeholder="Enter your address" onChange= {handleSignUpChange} required />
                       <small id="addresssnote" class="form-text text-muted">Please specify your delivery address.</small>
                     </div>
                     <br />
-                    <div className="text-center">
-                      <input className="btn btn-success custom-button" type="submit" value="Sign Up" />
+                    <div class="text-center">
+                      <input class="btn btn-success custom-button" type="submit" value="Sign Up" />
                     </div>
                     
                     
@@ -232,34 +239,34 @@ const Navbar = () => {
                   /* Sign In */
                   <form onSubmit={callLogin}>
                     
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Username</label>
-                      <input type="text" className="form-control" id="username" placeholder="Enter Username"  onChange={handleChange} value={login.username} required />
+                      <input type="text" class="form-control" id="username" placeholder="Enter Username"  onChange={handleChange} value={login.username} required />
                     </div>
                     <br />
-                    <div className="form-group">
+                    <div class="form-group">
                       <label>Password</label>
-                      <input type="password" className="form-control" id="password" placeholder="Enter password"  onChange={handleChange} value={login.password} required />
+                      <input type="password" class="form-control" id="password" placeholder="Enter password"  onChange={handleChange} value={login.password} required />
                     </div>
                     <br />
-                    <div className="text-center">
-                      <input className="btn btn-success custom-button" type="submit" value="Log In" />
+                    <div class="text-center">
+                      <input class="btn btn-success custom-button" type="submit" value="Log In" />
                     </div>
                   </form>
                 )}
                 <br />
                
-                <div className="line-with-text">
-                  <hr className="custom-line" />
-                  <span className="between-text">
+                <div class="line-with-text">
+                  <hr class="custom-line" />
+                  <span class="between-text">
                     {showSignUp ? 'Already a User?' : 'New to Veggie?'}
                   </span>
-                  <hr className="custom-sec-line" />
+                  <hr class="custom-sec-line" />
                 </div>
                 <br />
-                <div className="text-center">
+                <div class="text-center">
                   
-                  <button onClick={() => setShowSignUp(!showSignUp)} className="btn btn-light acc-custom-button">
+                  <button onClick={() => setShowSignUp(!showSignUp)} class="btn btn-light acc-custom-button">
                     {showSignUp ? 'Sign In' : 'Create New Account'}
                   </button>
                 </div>
@@ -284,16 +291,16 @@ const Navbar = () => {
       
     </ul>
     
-    <div className="ml-auto d-flex w-50">
-          <form className="form-inline w-100">
-            <div className="input-group w-100">
+    <div class="ml-auto d-flex w-50">
+          <form class="form-inline w-100">
+            <div class="input-group w-100">
               <input
-                className="form-control mr-sm-1 fs-8 flex-grow-1" 
+                class="form-control mr-sm-1 fs-8 flex-grow-1" 
                 type="search"
                 placeholder="Search for Products.."
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success fs-8 btn-sm" type="submit">
+              <button class="btn btn-outline-success fs-8 btn-sm" type="submit">
                 Search
               </button>
             </div>
