@@ -110,5 +110,28 @@ class logout(APIView):
             return Response(
                 {"message": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
             ) 
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+class ProductList(APIView):
+    def get(self,request):
+        try:
+            products=Products.objects.all()
+        
+            product_data = pd.DataFrame(
+                    Products.objects.values(
+                        "id", "title", "description", "image_url",
+                    )
+                )
+            product_data= product_data.to_dict(orient="records")
+            print(product_data)
+            
 
+            return JsonResponse(product_data,safe=False, status=status.HTTP_200_OK)
+        
+        
+        except Exception:
+            return JsonResponse(
+                {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
+            )
 
+        

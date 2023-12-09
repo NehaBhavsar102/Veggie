@@ -12,16 +12,12 @@ function FirstPage(){
       
       <Navbar />
       <HomeCards />
-      
-            
-            
-      
-    
-   
+     
             
             <Partners />
             <ComboCards />
             <Home />
+            
         </div>
     )
 
