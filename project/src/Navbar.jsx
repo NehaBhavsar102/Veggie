@@ -290,6 +290,10 @@ const Navbar = () => {
         <a id="about" class="nav-link" href="#">About Us</a>
       </li>
       
+      <li class="nav-item">
+      <a id="about" class="nav-link" href="/cart">Cart</a>
+      </li>
+      
       
       
     </ul>
