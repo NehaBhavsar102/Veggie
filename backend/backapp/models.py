@@ -21,6 +21,10 @@ class Products(models.Model):
     image_url = models.ImageField(upload_to='product_images/')
     description = models.TextField()
 
+class Order(models.Model):
+    user_id =models.ForeignKey(Mst_UsrTbl, on_delete=models.CASCADE, null=True)
+    product_id=models.ForeignKey(Products,on_delete=models.CASCADE,null=True)
+    quantity=models.IntegerField()
 
 
 

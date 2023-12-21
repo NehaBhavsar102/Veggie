@@ -4,6 +4,7 @@ import FirstPage from "./FirstPage";
 import Login from "./Login";
 import Cart from './Cart';
 import { AuthProvider } from './AuthContext';
+import OrderSuccess from './OrderSuccess';
 const AllRoutes = () => {
     return (
       <>
@@ -18,6 +19,7 @@ const AllRoutes = () => {
         <Route path="/" element={<FirstPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/success" element={<OrderSuccess />} />
         </Routes>
         </AuthProvider>
       </>

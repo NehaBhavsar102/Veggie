@@ -7,6 +7,12 @@ function Cart(){
     const [qty,SetQty]=useState({});
     const[totalPrice,setTotalPrice]=useState(0);
     const [cartempty,setCartEmpty]=useState();
+    const [username, setUsername] = useState(""); 
+
+    useEffect(() => {
+      setUsername(sessionStorage.getItem('username') || "");
+    }, []); 
+    console.log("username:", username);
     useEffect(() => {
       const storedCart = sessionStorage.getItem('cart');
       if (storedCart) {
@@ -124,12 +130,37 @@ function Cart(){
       sessionStorage.setItem('cart',JSON.stringify(updatedCartQty));
       setCart(updatedCartQty);
     }
-    const placeOrder = () => {
+    const placeOrder = async () => {
       const order=JSON.parse(sessionStorage.getItem('cart'));
+      if(!sessionStorage.getItem('username') || sessionStorage.getItem('username') === ''){
+          alert("Please Login before Placing order")
+      }
       console.log("your order")
       console.log(order["4"].quantity)
+      try{
+        const response = await axios.post(
+          "http://127.0.0.1:8000/backapp/placeOrder/",
+          { order ,username },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+            if(response.status==200){
+              window.location.href='/success'
+            }
+      }catch(error){
+        console.error('Error fetching data:', error);
+      }
+
     }
-   
+    const delCartPro = (productId) => {
+      const updatedCart = { ...cart };
+      delete updatedCart[productId];
+      sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+      setCart(updatedCart);
+    };
     return( 
         <>
         <div>
@@ -184,7 +215,7 @@ function Cart(){
           {JSON.parse(sessionStorage.getItem('cart'))?.[product.id]?.quantity || 0}
           <button class="btn btn-outline-dark btn-md mx-2"
           onClick={() => { decreaseQty(product.id);}}>-</button>
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"  onClick={() => delCartPro(product.id)}>
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
           </svg>

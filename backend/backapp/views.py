@@ -161,6 +161,45 @@ class CartProductList(APIView):
             return JsonResponse(
                 {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
             )
+class placeOrder(APIView):
+    def post(self,request):
+        try:
+
+            print("place order")
+            data = json.loads(request.body)
+            order = data.get('order', {})
+            username = data.get('username', '')
+            print(username)
+            match_user = Mst_UsrTbl.objects.filter(username=username).values(
+                        "id","username","name","address"
+                    )
+                
+            if match_user.exists():
+                user_id = match_user[0]['id']
+                print(user_id)
+           
+
+            for product_id, details in order.items():
+                quantity = details.get('quantity')
+                print(f"Product ID: {product_id}, Quantity: {quantity}")
+                place_order=Order.objects.create(
+                    user_id_id=user_id,
+                    product_id_id=product_id,
+                    quantity=quantity,
+                )
+                print()
+                print(place_order)
+            
+               
+           
+
+
+            return JsonResponse({"message" : "Order place successful"},safe=False, status=status.HTTP_200_OK)
+        except Exception:
+            return JsonResponse(
+                {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
+            )
+
 
         
            
