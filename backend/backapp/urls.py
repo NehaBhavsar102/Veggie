@@ -7,6 +7,6 @@ urlpatterns = [
     path("products/", ProductList.as_view(), name="products"),
     path("login/", login.as_view(), name="login"),
     path("logout/", logout.as_view(), name="logout"),
-   
+    path("carts/",CartProductList.as_view(),name="carts")
    
 ]

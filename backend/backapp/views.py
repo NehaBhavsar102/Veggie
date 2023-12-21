@@ -133,5 +133,36 @@ class ProductList(APIView):
             return JsonResponse(
                 {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
             )
+class CartProductList(APIView):
+    def post(self,request):
+        cart=request.data
+        try:
+            if cart is None:
+               return JsonResponse(
+                   {"message" : "Cart is Empty"},status=status.HTTP_400_BAD_REQUEST
+               )
+            else:
+                print(cart)
+                cart_list = cart["cart"]
+                print(cart_list)
+                match_products = pd.DataFrame(
+                    Products.objects.filter(id__in=cart_list).values(
+                        "id", "title", "image_url","description",
+                    )
+                )
+                print(match_products)
+                
 
+                match_products = match_products.to_dict(orient="records")
+                return JsonResponse(match_products,safe=False, status=status.HTTP_200_OK)
+            
+
+        except Exception:
+            return JsonResponse(
+                {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
+            )
+
+        
+           
+        
         
