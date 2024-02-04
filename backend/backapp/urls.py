@@ -8,5 +8,7 @@ urlpatterns = [
     path("login/", login.as_view(), name="login"),
     path("logout/", logout.as_view(), name="logout"),
     path("carts/",CartProductList.as_view(),name="carts"),
-    path("placeOrder/",placeOrder.as_view(),name="carts"),
+    path("placeOrder/",placeOrder.as_view(),name="place"),
+    path("viewOrder/",viewOrder.as_view(),name="view"),
+
 ]

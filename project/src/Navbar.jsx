@@ -165,7 +165,7 @@ const Navbar = () => {
             Welcome, {sessionStorage.getItem('username')}
           </span><ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
-                <a class="nav-link" href="#">My Order</a>
+                <a class="nav-link" href="/order">My Order</a>
               </li>
             </ul></>
 

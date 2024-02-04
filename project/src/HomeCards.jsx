@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel, Card, Button } from 'react-bootstrap';
 import { AuthContext } from './AuthContext';
 import axios from "axios";
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAzNDA5MjU4LCJpYXQiOjE3MDIxMTMyNTgsImp0aSI6IjYyOTI0YThhNGQ0OTRjM2ZiMmIxM2FiZjMyNDQ0YTRiIiwidXNlcl9pZCI6M30.aovXm0lgY7eYQDQSvf8FQ0_IVVGY_kCluCVOFuqIIlg';
+
 const HomeCards = () => {
   const [cardData, setProduct] = useState('');
 
@@ -12,9 +12,7 @@ const HomeCards = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/backapp/products', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+          
         });
         setProduct(response.data); 
       } catch (error) {

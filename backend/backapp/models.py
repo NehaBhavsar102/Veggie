@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
     Group,
     Permission,
 )
-
+from django.utils import timezone
 # Create your models here.
 
 
@@ -25,6 +25,9 @@ class Order(models.Model):
     user_id =models.ForeignKey(Mst_UsrTbl, on_delete=models.CASCADE, null=True)
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE,null=True)
     quantity=models.IntegerField()
+    orderDate = models.DateField(default=timezone.now)
+    status = models.CharField(max_length=50, default='Not delivered')
+    
 
 
 

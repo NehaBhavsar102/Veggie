@@ -110,8 +110,7 @@ class logout(APIView):
             return Response(
                 {"message": "Invalid token."}, status=status.HTTP_400_BAD_REQUEST
             ) 
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
+
 class ProductList(APIView):
     def get(self,request):
         try:
@@ -161,6 +160,7 @@ class CartProductList(APIView):
             return JsonResponse(
                 {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
             )
+
 class placeOrder(APIView):
     def post(self,request):
         try:
@@ -200,6 +200,55 @@ class placeOrder(APIView):
                 {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
             )
 
+class viewOrder(APIView):
+    def post(self,request):
+        try:
+            print("in view order")
+            data = json.loads(request.body)
+            username=data.get('username','')
+            match_user = Mst_UsrTbl.objects.filter(username=username).values(
+                        "id"
+                    )
+                
+            if match_user.exists():
+                user_id = match_user[0]['id']
+                print(user_id)
+
+            user_orders=pd.DataFrame(
+            Order.objects.filter(user_id_id=user_id).values(
+                "product_id_id","quantity","orderDate","status"
+            )
+            )
+            print(user_orders)
+            product_list=[]
+            for i, row in user_orders.iterrows():
+                product_id=row['product_id_id']
+                product_list.append(product_id)
+
+            match_products=pd.DataFrame(
+                Products.objects.filter(id__in=product_list).values(
+                   "id", "title","description"
+                )
+            )
+            # print(match_products)
+           
+            overall_order = pd.merge(
+                user_orders, match_products, left_on="product_id_id", right_on="id", how="inner"
+            )
+           
+            overall_order = overall_order.to_dict(orient="records")
+            print(overall_order)
+           
+            
+            return JsonResponse(
+                overall_order,safe=False,status=status.HTTP_200_OK
+            )
+        
+        except Exception:
+             return JsonResponse(
+                {"message" : "Something Went Wrong"},status=status.HTTP_400_BAD_REQUEST
+            )
+    
 
         
            

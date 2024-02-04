@@ -136,7 +136,7 @@ function Cart(){
           alert("Please Login before Placing order")
       }
       console.log("your order")
-      console.log(order["4"].quantity)
+      
       try{
         const response = await axios.post(
           "http://127.0.0.1:8000/backapp/placeOrder/",
@@ -148,6 +148,9 @@ function Cart(){
           }
         );
             if(response.status==200){
+              sessionStorage.removeItem('cart');
+              sessionStorage.removeItem('cartProducts');
+              sessionStorage.removeItem('totalPrice');
               window.location.href='/success'
             }
       }catch(error){
