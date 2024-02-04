@@ -28,6 +28,7 @@
         console.error("something went wrong");
       }
     }, []);
+    
     const total = (quantity, price) => {
       const qty = parseInt(quantity);
       const cost = parseFloat(price.replace(/[^\d.]/g, '')); 
